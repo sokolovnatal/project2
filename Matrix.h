@@ -38,7 +38,7 @@ public:
   Matrix operator*(const Matrix&);
 
 private:
-  double **data; // a pointer to create a 2D array (matrix) and point to it
+  double **data{}; // a pointer to create a 2D array (matrix) and point to it
   int rows; // the total number of rows in a matrix
   int cols; // the total number of columns in a matrix
 
