@@ -46,41 +46,116 @@ ostream& operator<<(ostream& output, const Matrix& mat) {
   output.precision(mat.OUTPUT_PRECISION); // set the precision
   
   // TODO: output the element values of the parameter mat
+  int rows = mat.rows;
+  int cols = mat.cols;
+  for(int i = 0; i < rows; i++){
+      for(int j = 0; j < cols; j++){
+          output << mat.data[i][j]; // ask Sunny ?
+      }
+  }
 }
+
 
 istream& operator>>(istream& input, Matrix& mat) {
   // TODO: receive and store element values of the parameter mat
+    int rows = mat.rows;
+    int cols = mat.cols;
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++) {
+            input >> mat.data[i][j]; // ask Sunny ?
+        }
+    }
 }
 
 Matrix Matrix::operator+(const Matrix& mat) {
   // matrix dimension check using assert()
   // assert that the rows and cols must match
   // otherwise, the program terminates and an error message is printed
+  // member functions must return a new Matrix object with the result of the operation.
   assert( (rows == mat.rows) && (cols == mat.cols) );
-
   // TODO: perform matrix addition
+  // Option 1:
+  Matrix x = Matrix(rows, cols);
+  int row = mat.rows;
+  int cols = mat.cols;
+  for(int i = 0; i < row; i++){
+      for(int j = 0; j <cols; j++){
+          x.data[i][j] = data[i][j] + mat.data[i][j];
+
+      }
+  }
+  return x;
+
+    /* Option 2:
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j <cols; j++){
+            this.data[i][j] = data[i][j] + mat.data[i][j];
+        }
+    }
+    return this; // return the current object
+}*/
+
 }
 
 Matrix Matrix::operator-(const Matrix& mat) {
   // TODO: matrix dimension check using assert() (refer to the operator+ code)
-	
+  assert( (rows == mat.rows) && (cols == mat.cols) );
   // TODO: perform matrix subtraction
+    Matrix x = Matrix(rows, cols);
+    int row = mat.rows;
+    int cols = mat.cols;
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j <cols; j++){
+            x.data[i][j] = data[i][j]  -  mat.data[i][j];
+
+        }
+    }
+    return x;
 }
 
 Matrix& Matrix::operator+=(const Matrix& mat) {
   // TODO: matrix dimension check using assert() (refer to the operator+ code)
-
+  assert( (rows == mat.rows) && (cols == mat.cols) );
   // TODO: perform matrix addition in place
+   // Matrix copy = Matrix() // need to use copy constructor
+    int row = mat.rows;
+    int cols = mat.cols;
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j <cols; j++){
+            data[i][j]= data[i][j]  +  mat.data[i][j];
+        }
+    }
+    return *this;
+
+
+
 }
 
 Matrix& Matrix::operator-=(const Matrix& mat) {
   // TODO: matrix dimension check using assert() (refer to the operator+ code)
-
+  assert( (rows == mat.rows) && (cols == mat.cols) );
   // TODO: perform matrix subtraction in place
+    int row = mat.rows;
+    int cols = mat.cols;
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j <cols; j++){
+            data[i][j]= data[i][j]  -  mat.data[i][j];
+        }
+    }
+    return *this;
 }
 
 Matrix Matrix::operator*(const Matrix& mat) {
   // TODO: matrix dimension check using assert() (what is needed?)
-	
+  assert( (rows == mat.rows) && (cols == mat.cols) );
   // TODO: perform matrix multiplication
+    int row = mat.rows;
+    int cols = mat.cols;
+    int sum = 0;
+    for(int i = 0; i < row; i++){
+        for(int j = 0; j <cols; j++){
+           sum += data[i][j]  *  mat.data[i][j];
+        }
+    }
+    return *this;
 }
