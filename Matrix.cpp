@@ -50,8 +50,10 @@ ostream& operator<<(ostream& output, const Matrix& mat) {
   int cols = mat.cols;
   for(int i = 0; i < rows; i++){
       for(int j = 0; j < cols; j++){
-          output << mat.data[i][j]; // ask Sunny ?
+          output << setw(mat.OUTPUT_WIDTH) << fixed << mat.data[i][j];
+          //output << "      " << mat.data[i][j]; // ask Sunny ?
       }
+      output << "\n";
   }
   return output;
 }
