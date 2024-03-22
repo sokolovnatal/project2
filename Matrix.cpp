@@ -151,15 +151,19 @@ Matrix& Matrix::operator-=(const Matrix& mat) {
 
 Matrix Matrix::operator*(const Matrix& mat) {
   // TODO: matrix dimension check using assert() (what is needed?)
-  assert( (rows == mat.rows) && (cols == mat.cols) );
+  assert( /*(rows == mat.rows) && (cols == mat.cols)*/ (cols % mat.rows) == 0  );
   // TODO: perform matrix multiplication
-    int row = mat.rows;
-    int col = mat.cols;
+    Matrix x = Matrix(rows, mat.cols);
+    int row = cols;
+    int col = mat.rows;
     double sum = 0;
-    for(int i = 0; i < row; i++){
-        for(int j = 0; j <col; j++){
-           sum += data[i][j]  *  mat.data[i][j];
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j <mat.cols; j++){
+            x.data[i][j] = 0;
+            for (int k = 0; k < mat.rows; k++) {
+               x.data[i][j] += data[i][j] * mat.data[j][i];
+            }
         }
     }
-    return *this;
+    return x;
 }
