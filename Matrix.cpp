@@ -131,8 +131,6 @@ Matrix& Matrix::operator+=(const Matrix& mat) {
     }
     return *this;
 
-
-
 }
 
 Matrix& Matrix::operator-=(const Matrix& mat) {
@@ -151,19 +149,20 @@ Matrix& Matrix::operator-=(const Matrix& mat) {
 
 Matrix Matrix::operator*(const Matrix& mat) {
   // TODO: matrix dimension check using assert() (what is needed?)
-  assert( /*(rows == mat.rows) && (cols == mat.cols)*/ (cols % mat.rows) == 0  );
+  assert( /*(rows == mat.rows) &&*/ (cols == mat.rows)  );
   // TODO: perform matrix multiplication
     Matrix x = Matrix(rows, mat.cols);
     int row = cols;
     int col = mat.rows;
     double sum = 0;
     for(int i = 0; i < rows; i++){
-        for(int j = 0; j <mat.cols; j++){
+        for(int j = 0; j < mat.cols; j++){
             x.data[i][j] = 0;
             for (int k = 0; k < mat.rows; k++) {
-               x.data[i][j] += data[i][j] * mat.data[j][i];
+               x.data[i][j] += data[i][k] * mat.data[k][j];
             }
         }
     }
+
     return x;
 }
